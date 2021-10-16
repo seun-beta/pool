@@ -7,6 +7,46 @@ screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry("+%d+%d" % (300, 100))
 
+
+
+
+def add_joints():
+
+    #-------------Joints------------------
+    top = Toplevel()
+    top.geometry("+%d+%d" % (300, 100))
+
+    tj_label = Label(top, text="Tee Joint", fg="blue")
+    tj_label.grid(row=0, column=0, padx=10, pady=10)
+
+    tj_label = Label(top, text="Tee Joint Diameter:")
+    tj_label.grid(row=1, column=0, padx=10, pady=10)
+    tj_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"]
+    clicked_tj = StringVar(top)
+    clicked_tj.set(tj_list[0])
+    drop = OptionMenu(top, clicked_tj, *tj_list)
+    drop.grid(row=1, column=1)
+
+    ninety_label = Label(top, text="90° Elbow ")
+    ninety_label.grid(row=2, column=0, padx=10, pady=10)
+
+    ninety_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
+    clicked_ninety = StringVar(top)
+    clicked_ninety.set(ninety_list[0])
+    drop = OptionMenu(top, clicked_ninety, *ninety_list)
+    drop.grid(row=2, column=1)
+
+
+    turn_over_time_label = Label(root, text="Turn Over Time:")
+    turn_over_time_label.grid(row=3, column=0, padx=10, pady=10)
+    turn_over_time_list = ["6 hours"]
+    clicked_turn_over_time = StringVar(root)
+    clicked_turn_over_time.set(turn_over_time_list[0])
+    drop = OptionMenu(root, clicked_turn_over_time, *turn_over_time_list)
+    drop.grid(row=3, column=1)
+
+
+
 #-------------Dimension------------------
 dimension_label = Label(root, text="Dimension", fg="blue")
 dimension_label.grid(row=0, column=0, padx=10, pady=10)
@@ -62,6 +102,9 @@ drop.grid(row=3, column=3)
 
 chlorine_label_dose = Label(root, text="10 mg/L should be used only for supershocking pool", fg="red")
 chlorine_label_dose.grid(row=4, column=3, padx=10, pady=10)
+
+joints = Button(root, text="Add New Joints", command=add_joints)
+joints.grid(row=5, column=2, padx=(20,20), pady=20)
 
 #-------------Pump--------------------------------
 inlet_outlet_label = Label(root, text="Pump", fg="red")
@@ -126,5 +169,6 @@ no_of_outlets_label = Label(root, text="Number of Return Inlets:")
 no_of_outlets_label.grid(row=12, column=0, padx=10, pady=10)
 no_of_outlets = Entry(root, width=30)
 no_of_outlets.grid(row=12, column=1, padx=10, pady=10)
+
 
 root.mainloop()
