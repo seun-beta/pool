@@ -99,17 +99,59 @@ def design():
     friction_head = Entry(top, width=30)
     friction_head.grid(row=3, column=5, padx=10, pady=10)
 
-    #-------------Pump Performance Curve-----------------
-    pump_performance = Button(top, text="Pump Performance Curve", bg="grey", command=pump_performance)
-    pump_performance.grid(row=4, column=0, padx=(20,20), pady=20)
-    
-    single_pump_flow_rate_label = Label(top, text="Single Pump Flow Rate:")
-    single_pump_flow_rate_label.grid(row=5, column=0, padx=10, pady=10)
-    single_pump_flow_rate = Entry(top, width=30)
-    single_pump_flow_rate.grid(row=5, column=1, padx=10, pady=10)
+    #-------------Pipe-----------------
+    pipe_label = Label(top, text="Pipe", fg="blue")
+    pipe_label.grid(row=4, column=0, padx=10, pady=10)
 
+    drainage_suction_pipe_label = Label(top, text="Drain Suction Pipe:")
+    drainage_suction_pipe_label.grid(row=5, column=0, padx=10, pady=10)
+    drainage_suction_pipe_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"]
+    clicked_drainage_suction_pipe = StringVar(top)
+    clicked_drainage_suction_pipe.set(drainage_suction_pipe_list[0])
+    drop = OptionMenu(top, clicked_drainage_suction_pipe, *drainage_suction_pipe_list)
+    drop.grid(row=5, column=1)
 
+    dsp_label = Label(top, text="Length")
+    dsp_label.grid(row=6, column=0, padx=10, pady=10)
+    dsp = Entry(top, width=30)
+    dsp.grid(row=6, column=1, padx=10, pady=10)
 
+    main_suction_pipe_label = Label(top, text="Main Suction Pipe:")
+    main_suction_pipe_label.grid(row=7, column=0, padx=10, pady=10)
+    main_suction_pipe_list = ["304.8 mm", "355.6 mm", "406.4 mm"]
+    clicked_main_suction_pipe = StringVar(top)
+    clicked_main_suction_pipe.set(main_suction_pipe_list[0])
+    drop = OptionMenu(top, clicked_main_suction_pipe, *main_suction_pipe_list)
+    drop.grid(row=7, column=1)
+
+    msp_label = Label(top, text="Length")
+    msp_label.grid(row=8, column=0, padx=10, pady=10)
+    msp = Entry(top, width=30)
+    msp.grid(row=8, column=1, padx=10, pady=10)
+
+    main_return_inlet_pipe_label = Label(top, text="Main Return Inlet Pipe:")
+    main_return_inlet_pipe_label.grid(row=9, column=0, padx=10, pady=10)
+    main_return_inlet_pipe_list = ["304.8 mm", "355.6 mm", "406.4 mm"]
+    clicked_main_return_inlet_pipe = StringVar(top)
+    clicked_main_return_inlet_pipe.set(main_return_inlet_pipe_list[0])
+    drop = OptionMenu(top, clicked_main_return_inlet_pipe, *main_return_inlet_pipe_list)
+    drop.grid(row=9, column=1)
+
+    mrip_label = Label(top, text="Length")
+    mrip_label.grid(row=10, column=0, padx=10, pady=10)
+    mrip = Entry(top, width=30)
+    mrip.grid(row=10, column=1, padx=10, pady=10)
+
+    chlorine_req_label = Label(top, text="Main Return Inlet Pipe:")
+    chlorine_req_label.grid(row=11, column=0, padx=10, pady=10)
+    chlorine_req_list = ["1 mg/L", "2 mg/L", "3 mg/L", "10 mg/L"]
+    clicked_chlorine_req = StringVar(top)
+    clicked_chlorine_req.set(chlorine_req_list[0])
+    drop = OptionMenu(top, clicked_chlorine_req, *chlorine_req_list)
+    drop.grid(row=11, column=1)
+
+    chlorine_label = Label(top, text="10 mg/L should be used only for supershocking pool", fg="red")
+    chlorine_label.grid(row=12, column=1, padx=10, pady=10)
 
 
 
