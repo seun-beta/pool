@@ -16,8 +16,8 @@ def add_joints():
     top = Toplevel()
     top.geometry("+%d+%d" % (300, 100))
 
-    tj_label = Label(top, text="Tee Joint", fg="blue")
-    tj_label.grid(row=0, column=0, padx=10, pady=10)
+    # tj_label = Label(top, text="Tee Joint", fg="blue")
+    # tj_label.grid(row=0, column=0, padx=10, pady=10)
 
     tj_label = Label(top, text="Tee Joint Diameter:")
     tj_label.grid(row=1, column=0, padx=10, pady=10)
@@ -37,13 +37,26 @@ def add_joints():
     drop.grid(row=2, column=1)
 
 
-    turn_over_time_label = Label(root, text="Turn Over Time:")
-    turn_over_time_label.grid(row=3, column=0, padx=10, pady=10)
-    turn_over_time_list = ["6 hours"]
-    clicked_turn_over_time = StringVar(root)
-    clicked_turn_over_time.set(turn_over_time_list[0])
-    drop = OptionMenu(root, clicked_turn_over_time, *turn_over_time_list)
+    lre_label = Label(top, text="Long Radius Elbow ")
+    lre_label.grid(row=3, column=0, padx=10, pady=10)
+
+    lre_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
+    clicked_lre = StringVar(top)
+    clicked_lre.set(lre_list[0])
+    drop = OptionMenu(top, clicked_lre, *lre_list)
     drop.grid(row=3, column=1)
+
+    forty_label = Label(top, text="45° Elbow Elbow ")
+    forty_label.grid(row=4, column=0, padx=10, pady=10)
+
+    forty_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
+    clicked_forty = StringVar(top)
+    clicked_forty.set(forty_list[0])
+    drop = OptionMenu(top, clicked_forty, *forty_list)
+    drop.grid(row=4, column=1)
+
+    save_data = Button(top, text="Save")
+    save_data.grid(row=5, column=1, pady=20)
 
 
 
