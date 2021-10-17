@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from datetime import *
 import sqlite3
 
@@ -19,6 +20,15 @@ root.title(f"{datetime.now():%a, %b %d %Y} | Pool.io ")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry("+%d+%d" % (300, 100))
+
+
+
+def calculate():
+    if no_of_outlets.get() < 73 and clicked_depth == "2 m":
+        messagebox.showerror("showerror", "No of outlets muct be greater than 73 for 2m pool")
+    elif no_of_outlets.get() < 95 and clicked_depth == "3 m":
+        messagebox.showerror("showerror", "No of outlets muct be greater than 95 for 3m pool")
+
 
 def add_joints():
 
@@ -48,7 +58,7 @@ def add_joints():
         conn = sqlite3.connect("pool.db")
         cur = conn.cursor()
 
-        cur.execute("DELETE FROM  Joints;")
+        cur.execute("DELETE FROM Joints;")
         conn.commit()
         conn.close()
         success = Label(top, text="Deleted all records successfully", fg="red")
@@ -228,6 +238,8 @@ no_of_outlets_label = Label(root, text="Number of Return Inlets:")
 no_of_outlets_label.grid(row=12, column=0, padx=10, pady=10)
 no_of_outlets = Entry(root, width=30)
 no_of_outlets.grid(row=12, column=1, padx=10, pady=10)
+
+
 
 
 root.mainloop()
