@@ -1,5 +1,18 @@
 from tkinter import *
 from datetime import *
+import sqlite3
+
+
+conn = sqlite3.connect("pool.db")
+cur = conn.cursor()
+
+cur.execute("""CREATE TABLE IF NOT EXISTS "Joints" (
+"joints_id"	INTEGER NOT NULL UNIQUE PRIMARY KEY,
+"tee_joint"	REAL,
+"ninety_elbow" REAL,
+"long_elbow" REAL,
+"forty_elbow"REAL);
+""")
 
 root = Tk()
 root.title(f"{datetime.now():%a, %b %d %Y} | Pool.io ")
@@ -7,10 +20,38 @@ screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry("+%d+%d" % (300, 100))
 
-
-
-
 def add_joints():
+
+    def save_joints():
+        conn = sqlite3.connect("pool.db")
+        cur = conn.cursor()
+
+        tj = clicked_tj.get().split()
+        ninety = clicked_ninety.get().split()
+        lre = clicked_lre.get().split()
+        forty = clicked_forty.get().split()
+
+        cur.execute("INSERT INTO Joints VALUES (null,?,?,?,?)",(
+                    tj[0],
+                    ninety[0],
+                    lre[0],
+                    forty[0])
+        )
+        conn.commit()
+        conn.close()
+        success = Label(top, text="Added record successfully", fg="green")
+        success.grid(row=6, column=1, columnspan=2)
+
+
+    def delete_joints():
+        conn = sqlite3.connect("pool.db")
+        cur = conn.cursor()
+
+        cur.execute("DELETE FROM  Joints;")
+        conn.commit()
+        conn.close()
+        success = Label(top, text="Deleted all records successfully", fg="red")
+        success.grid(row=8, column=1, columnspan=2)
 
     #-------------Joints------------------
     top = Toplevel()
@@ -55,8 +96,11 @@ def add_joints():
     drop = OptionMenu(top, clicked_forty, *forty_list)
     drop.grid(row=4, column=1)
 
-    save_data = Button(top, text="Save")
+    save_data = Button(top, text="Save", command=save_joints)
     save_data.grid(row=5, column=1, pady=20)
+
+    clear_data = Button(top, text="Clear ALL Data", bg="red",  command=delete_joints)
+    clear_data.grid(row=7, column=1, pady=20)
 
 
 
