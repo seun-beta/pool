@@ -41,6 +41,7 @@ def add_joints():
         conn.close()
         success = Label(top, text="Added record successfully", fg="green")
         success.grid(row=6, column=1, columnspan=2)
+        success.after(2000, success.destroy)
 
 
     def delete_joints():
@@ -52,6 +53,7 @@ def add_joints():
         conn.close()
         success = Label(top, text="Deleted all records successfully", fg="red")
         success.grid(row=8, column=1, columnspan=2)
+        success.after(5000, success.destroy)
 
     #-------------Joints------------------
     top = Toplevel()
