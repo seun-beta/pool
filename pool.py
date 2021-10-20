@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from datetime import *
 import sqlite3
 
@@ -8,10 +9,8 @@ cur = conn.cursor()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS "Joints" (
 "joints_id"	INTEGER NOT NULL UNIQUE PRIMARY KEY,
-"tee_joint"	REAL,
-"ninety_elbow" REAL,
-"long_elbow" REAL,
-"forty_elbow"REAL);
+"type_of_joint"	TEXT,
+"type_of_joint_diameter" REAL);
 """)
 
 root = Tk()
@@ -20,27 +19,33 @@ screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry("+%d+%d" % (300, 100))
 
+
+
+def calculate():
+    if no_of_outlets.get() < 73 and clicked_depth == "2 m":
+        messagebox.showerror("showerror", "No of outlets muct be greater than 73 for 2m pool")
+    elif no_of_outlets.get() < 95 and clicked_depth == "3 m":
+        messagebox.showerror("showerror", "No of outlets muct be greater than 95 for 3m pool")
+
+
 def add_joints():
 
     def save_joints():
         conn = sqlite3.connect("pool.db")
         cur = conn.cursor()
 
-        tj = clicked_tj.get().split()
-        ninety = clicked_ninety.get().split()
-        lre = clicked_lre.get().split()
-        forty = clicked_forty.get().split()
+        toj = clicked_toj.get()
+        toj_diameter = clicked_toj_diameter.get().split()
 
-        cur.execute("INSERT INTO Joints VALUES (null,?,?,?,?)",(
-                    tj[0],
-                    ninety[0],
-                    lre[0],
-                    forty[0])
+
+        cur.execute("INSERT INTO Joints VALUES (null,?,?)",(
+                    toj,
+                    toj_diameter[0])
         )
         conn.commit()
         conn.close()
         success = Label(top, text="Added record successfully", fg="green")
-        success.grid(row=6, column=1, columnspan=2)
+        success.grid(row=4, column=1, columnspan=2)
         success.after(2000, success.destroy)
 
 
@@ -48,61 +53,40 @@ def add_joints():
         conn = sqlite3.connect("pool.db")
         cur = conn.cursor()
 
-        cur.execute("DELETE FROM  Joints;")
+        cur.execute("DELETE FROM Joints;")
         conn.commit()
         conn.close()
         success = Label(top, text="Deleted all records successfully", fg="red")
-        success.grid(row=8, column=1, columnspan=2)
+        success.grid(row=6, column=1, columnspan=2)
         success.after(5000, success.destroy)
 
     #-------------Joints------------------
     top = Toplevel()
     top.geometry("+%d+%d" % (300, 100))
 
-    # tj_label = Label(top, text="Tee Joint", fg="blue")
-    # tj_label.grid(row=0, column=0, padx=10, pady=10)
-
-    tj_label = Label(top, text="Tee Joint Diameter:")
-    tj_label.grid(row=1, column=0, padx=10, pady=10)
-    tj_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"]
-    clicked_tj = StringVar(top)
-    clicked_tj.set(tj_list[0])
-    drop = OptionMenu(top, clicked_tj, *tj_list)
+    toj_label = Label(top, text="Type of Joint:")
+    toj_label.grid(row=1, column=0, padx=10, pady=10)
+    toj_list = ["Tee Joint", "90° Elbow", "Long Elbow", "45° Elbow"]
+    clicked_toj = StringVar(top)
+    clicked_toj.set(toj_list[0])
+    drop = OptionMenu(top, clicked_toj, *toj_list)
     drop.grid(row=1, column=1)
 
-    ninety_label = Label(top, text="90° Elbow ")
-    ninety_label.grid(row=2, column=0, padx=10, pady=10)
+    toj_diameter_label = Label(top, text="90° Elbow ")
+    toj_diameter_label.grid(row=2, column=0, padx=10, pady=10)
 
-    ninety_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
-    clicked_ninety = StringVar(top)
-    clicked_ninety.set(ninety_list[0])
-    drop = OptionMenu(top, clicked_ninety, *ninety_list)
+    toj_diameter_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
+    clicked_toj_diameter = StringVar(top)
+    clicked_toj_diameter.set(toj_diameter_list[0])
+    drop = OptionMenu(top, clicked_toj_diameter, *toj_diameter_list)
     drop.grid(row=2, column=1)
 
 
-    lre_label = Label(top, text="Long Radius Elbow ")
-    lre_label.grid(row=3, column=0, padx=10, pady=10)
-
-    lre_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
-    clicked_lre = StringVar(top)
-    clicked_lre.set(lre_list[0])
-    drop = OptionMenu(top, clicked_lre, *lre_list)
-    drop.grid(row=3, column=1)
-
-    forty_label = Label(top, text="45° Elbow Elbow ")
-    forty_label.grid(row=4, column=0, padx=10, pady=10)
-
-    forty_list = ["152.4 mm", "203.2 mm", "254 mm", "304.8 mm", "355.6 mm", "406.4 mm"] 
-    clicked_forty = StringVar(top)
-    clicked_forty.set(forty_list[0])
-    drop = OptionMenu(top, clicked_forty, *forty_list)
-    drop.grid(row=4, column=1)
-
     save_data = Button(top, text="Save", command=save_joints)
-    save_data.grid(row=5, column=1, pady=20)
+    save_data.grid(row=3, column=1, pady=20)
 
     clear_data = Button(top, text="Clear ALL Data", bg="red",  command=delete_joints)
-    clear_data.grid(row=7, column=1, pady=20)
+    clear_data.grid(row=5, column=1, pady=20)
 
 
 
@@ -228,6 +212,8 @@ no_of_outlets_label = Label(root, text="Number of Return Inlets:")
 no_of_outlets_label.grid(row=12, column=0, padx=10, pady=10)
 no_of_outlets = Entry(root, width=30)
 no_of_outlets.grid(row=12, column=1, padx=10, pady=10)
+
+
 
 
 root.mainloop()
