@@ -49,12 +49,30 @@ def calculate():
         return_inlet_flow_rate = str(return_inlet_flow_rate) + " m3/hr"
         print(return_inlet_flow_rate+ "\n")
 
-    Q = float(turn_over_rate[0])
+
+    Q= float(turn_over_rate.split[0])
     dsp_value = clicked_drainage_suction_pipe.get().split()
-    dsp_s = 0.54* math.sqrt((Q*0.2)/(1000.8*150)*float(dsp_value[0])**2.63)
+    new_dsp_value = dsp_value[0]
+    dsp_s = ((Q*0.2)/(1000.8*150)*(float(new_dsp_value)/1000)**2.63)**(1/0.54)
     print(dsp_s)
     dsp_hl = dsp_s * float(dsp.get())
     print(dsp_hl)
+    print("")
+
+    msp_value = clicked_main_suction_pipe.get().split()
+    new_msp_value = msp_value[0]
+    msp_s = ((Q)/(1000.8*150)*(float(new_msp_value)/1000)**2.63)**(1/0.54)
+    print(msp_s)
+    msp_hl = msp_s * float(msp.get())
+    print(msp_hl)
+    print("")
+
+    mrip_value = clicked_main_return_inlet_pipe.get().split()
+    new_mrip_value = mrip_value[0]
+    mrip_s = ((Q)/(1000.8*150)*(float(new_mrip_value)/1000)**2.63) **(1/0.54)
+    print(mrip_s)
+    mrip_hl = mrip_s * float(mrip.get())
+    print(mrip_hl)
 
 
 
