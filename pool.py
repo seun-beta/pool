@@ -28,6 +28,8 @@ root.geometry("+%d+%d" % (300, 100))
 
 def calculate():
 
+
+
     bathing_load = int(((30*25)/1.8580) + ((20*25)/1.8580) - 27.87)
     print(str(bathing_load)+ "\n")
 
@@ -92,6 +94,52 @@ def calculate():
         drainage_size = (math.sqrt((4*drain_Q)/(3.142*V*3600)))*1000
         #drainage_size = math.sqrt((4*drain_Q)/(3.142*V))
     print(str(drainage_size)+ "\n")
+
+    #-------------Chlorination--------------------
+    if clicked_depth.get() == "2 m":
+        turn_over_rate = 4161.23/6
+        flow_rate = turn_over_rate/60
+        chlorine_req = clicked_chlorine_req.get().split()
+        Z = float(chlorine_req[0]) * flow_rate
+        chlorine_day = (Z * 1440)/1000
+    
+    else:
+        turn_over_rate = 5411.23/6
+        flow_rate = turn_over_rate/60
+        chlorine_req = clicked_chlorine_req.get().split()
+        Z = float(chlorine_req[0]) * flow_rate
+        chlorine_day = (Z * 1440)/1000
+    print("Chlorine Day: " + str(chlorine_day))
+
+    top = Toplevel()
+    calc_label = Label(top, text="Results:")
+    calc_label.grid(row=0, column=0)
+
+    bathing_load_label = Label(top, text="The bathing load is: "+ str(bathing_load))
+    bathing_load_label.grid(row=1, column=0)
+
+    turn_over_rate_label = Label(top, text="The turn over rate is: "+ str(turn_over_rate))
+    turn_over_rate_label.grid(row=2, column=0)
+
+    return_inlet_flow_rate_label = Label(top, text="The return inlet flow rate is: "+ str(return_inlet_flow_rate))
+    return_inlet_flow_rate_label.grid(row=3, column=0)
+
+    dsp_h1_label = Label(top, text="The Drainage Suction Pipe head loss is: "+ str(dsp_hl))
+    dsp_h1_label.grid(row=4, column=0)
+
+    msp_h1_label = Label(top, text="The Main Suction Pipe head loss is: "+ str(msp_hl))
+    msp_h1_label.grid(row=5, column=0)
+
+    mrip_h1_label = Label(top, text="The Main Return Inlet Pipe head loss is: "+ str(mrip_hl))
+    mrip_h1_label.grid(row=6, column=0)
+
+    drainage_size_label = Label(top, text="The Drainage Size is: "+ str(drainage_size))
+    drainage_size_label.grid(row=7, column=0)
+
+    chlorine_day_label = Label(top, text="The Chlorination in kg/day is: "+ str(chlorine_day))
+    chlorine_day_label.grid(row=8, column=0)
+
+
 
 
 def add_joints():
