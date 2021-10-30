@@ -28,6 +28,8 @@ root.geometry("+%d+%d" % (300, 100))
 
 def calculate():
 
+
+
     bathing_load = int(((30*25)/1.8580) + ((20*25)/1.8580) - 27.87)
     print(str(bathing_load)+ "\n")
 
@@ -40,7 +42,7 @@ def calculate():
 
     
     if int(no_of_inlets.get()) < 73 and clicked_depth.get() == "2 m":
-            messagebox.showerror("Error!", "No of inlets must be greater than 73 for 2m pool")
+        messagebox.showerror("Error!", "No of inlets must be greater than 73 for 2m pool")
     elif int(no_of_inlets.get()) < 95 and clicked_depth.get() == "3 m":
         messagebox.showerror("Error!", "No of inlets must be greater than 95 for 3m pool")
     else:
@@ -56,24 +58,38 @@ def calculate():
     dsp_s = ((Q*0.2)/(1000.8*150*((float(new_dsp_value)/1000)**2.63)))**(1/0.54)
     # dsp_s = ((Q*0.2)/(1000.8*150)*(float(new_dsp_value)/1000)**2.63)**(1/0.54)
     print(dsp_s)
-    dsp_hl = dsp_s * float(dsp.get())
-    print(dsp_hl)
-    print("")
+    try:
+        int(dsp.get())       
+        dsp_hl = dsp_s * float(dsp.get())
+        print(dsp_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Drain Suction Pipe")
+
 
     msp_value = clicked_main_suction_pipe.get().split()
     new_msp_value = msp_value[0]
     msp_s = ((Q)/(1000.8*150*((float(new_msp_value)/1000)**2.63)))**(1/0.54)
-    print(msp_s)
-    msp_hl = msp_s * float(msp.get())
-    print(msp_hl)
+    try:
+        int(msp.get())       
+        msp_hl = msp_s * float(msp.get())
+        print(msp_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Main Suction Pipe ")
     print("")
 
     mrip_value = clicked_main_return_inlet_pipe.get().split()
     new_mrip_value = mrip_value[0]
     mrip_s = ((Q)/(1000.8*150*((float(new_mrip_value)/1000)**2.63)))**(1/0.54)
     print(mrip_s)
-    mrip_hl = mrip_s * float(mrip.get())
-    print(mrip_hl)
+    try:
+        int(mrip.get())       
+        mrip_hl = mrip_s * float(mrip.get())
+        print(mrip_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Main Return Inlet Pipe")
 
 
 
@@ -92,6 +108,52 @@ def calculate():
         drainage_size = (math.sqrt((4*drain_Q)/(3.142*V*3600)))*1000
         #drainage_size = math.sqrt((4*drain_Q)/(3.142*V))
     print(str(drainage_size)+ "\n")
+
+    #-------------Chlorination--------------------
+    if clicked_depth.get() == "2 m":
+        turn_over_rate = 4161.23/6
+        flow_rate = turn_over_rate/60
+        chlorine_req = clicked_chlorine_req.get().split()
+        Z = float(chlorine_req[0]) * flow_rate
+        chlorine_day = (Z * 1440)/1000
+    
+    else:
+        turn_over_rate = 5411.23/6
+        flow_rate = turn_over_rate/60
+        chlorine_req = clicked_chlorine_req.get().split()
+        Z = float(chlorine_req[0]) * flow_rate
+        chlorine_day = (Z * 1440)/1000
+    print("Chlorine Day: " + str(chlorine_day))
+
+    top = Toplevel()
+    calc_label = Label(top, text="Results:")
+    calc_label.grid(row=0, column=0)
+
+    bathing_load_label = Label(top, text="The bathing load is: "+ str(bathing_load))
+    bathing_load_label.grid(row=1, column=0)
+
+    turn_over_rate_label = Label(top, text="The turn over rate is: "+ str(turn_over_rate))
+    turn_over_rate_label.grid(row=2, column=0)
+
+    return_inlet_flow_rate_label = Label(top, text="The return inlet flow rate is: "+ str(return_inlet_flow_rate))
+    return_inlet_flow_rate_label.grid(row=3, column=0)
+
+    dsp_h1_label = Label(top, text="The Drainage Suction Pipe head loss is: "+ str(dsp_hl))
+    dsp_h1_label.grid(row=4, column=0)
+
+    msp_h1_label = Label(top, text="The Main Suction Pipe head loss is: "+ str(msp_hl))
+    msp_h1_label.grid(row=5, column=0)
+
+    mrip_h1_label = Label(top, text="The Main Return Inlet Pipe head loss is: "+ str(mrip_hl))
+    mrip_h1_label.grid(row=6, column=0)
+
+    drainage_size_label = Label(top, text="The Drainage Size is: "+ str(drainage_size))
+    drainage_size_label.grid(row=7, column=0)
+
+    chlorine_day_label = Label(top, text="The Chlorination in kg/day is: "+ str(chlorine_day))
+    chlorine_day_label.grid(row=8, column=0)
+
+
 
 
 def add_joints():
