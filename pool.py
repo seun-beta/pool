@@ -42,7 +42,7 @@ def calculate():
 
     
     if int(no_of_inlets.get()) < 73 and clicked_depth.get() == "2 m":
-            messagebox.showerror("Error!", "No of inlets must be greater than 73 for 2m pool")
+        messagebox.showerror("Error!", "No of inlets must be greater than 73 for 2m pool")
     elif int(no_of_inlets.get()) < 95 and clicked_depth.get() == "3 m":
         messagebox.showerror("Error!", "No of inlets must be greater than 95 for 3m pool")
     else:
@@ -58,24 +58,38 @@ def calculate():
     dsp_s = ((Q*0.2)/(1000.8*150*((float(new_dsp_value)/1000)**2.63)))**(1/0.54)
     # dsp_s = ((Q*0.2)/(1000.8*150)*(float(new_dsp_value)/1000)**2.63)**(1/0.54)
     print(dsp_s)
-    dsp_hl = dsp_s * float(dsp.get())
-    print(dsp_hl)
-    print("")
+    try:
+        int(dsp.get())       
+        dsp_hl = dsp_s * float(dsp.get())
+        print(dsp_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Drain Suction Pipe")
+
 
     msp_value = clicked_main_suction_pipe.get().split()
     new_msp_value = msp_value[0]
     msp_s = ((Q)/(1000.8*150*((float(new_msp_value)/1000)**2.63)))**(1/0.54)
-    print(msp_s)
-    msp_hl = msp_s * float(msp.get())
-    print(msp_hl)
+    try:
+        int(msp.get())       
+        msp_hl = msp_s * float(msp.get())
+        print(msp_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Main Suction Pipe ")
     print("")
 
     mrip_value = clicked_main_return_inlet_pipe.get().split()
     new_mrip_value = mrip_value[0]
     mrip_s = ((Q)/(1000.8*150*((float(new_mrip_value)/1000)**2.63)))**(1/0.54)
     print(mrip_s)
-    mrip_hl = mrip_s * float(mrip.get())
-    print(mrip_hl)
+    try:
+        int(mrip.get())       
+        mrip_hl = mrip_s * float(mrip.get())
+        print(mrip_hl)
+        print("")
+    except:
+        messagebox.showerror("Error!", "You must input an integer for Main Return Inlet Pipe")
 
 
 
