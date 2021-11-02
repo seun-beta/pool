@@ -204,6 +204,7 @@ def calculate():
 
 
 
+
     top = Toplevel()
     calc_label = Label(top, text="Results:")
     calc_label.grid(row=0, column=0)
