@@ -7,6 +7,7 @@ import math
 
 #------------------Constants----------------------
 
+head_loss_in_filter = 7.1
 
 
 conn = sqlite3.connect("pool.db")
@@ -134,6 +135,7 @@ def calculate():
     all_created_joints = cur.fetchall()
     size = [152.9, 203.2, 254, 304.8, 355.6, 406.4]
     type_j = ["90° Elbow", "Long Radius Elbow", "45° Elbow", "Tee Joint"]
+    sum_loss = 0 
     for i in all_created_joints:
         if i[1] ==  "90° Elbow" and i[2] == 152.4:
             loss = 4.88
@@ -186,7 +188,16 @@ def calculate():
         else:
             loss = 0
 
+        sum_loss = sum_loss + loss
+    print(sum_loss)
+    try:
+              
+        new_static_head = float(static_head.get()) 
 
+    except:
+        messagebox.showerror("Error!", "You must input an integer for the Static Head ")
+    print("")
+    dynamic_head = head_loss_in_filter + mrip_hl + msp_hl + dsp_hl + sum_loss + new_static_head
 
 
 
@@ -220,6 +231,9 @@ def calculate():
 
     chlorine_day_label = Label(top, text="The Chlorination in kg/day is: "+ str(chlorine_day))
     chlorine_day_label.grid(row=8, column=0)
+
+    dynamic_head_label = Label(top, text="The Total Dynamic Head is: "+ str(dynamic_head)+ " meters")
+    dynamic_head_label.grid(row=9, column=0)
 
 
 
@@ -379,15 +393,15 @@ inlet_outlet_label = Label(root, text="Pump", fg="red")
 inlet_outlet_label.grid(row=0, column=4, padx=10, pady=10)
 
 
-suction_head_label = Label(root, text="Suction Head 'S':")
-suction_head_label.grid(row=1, column=4, padx=10, pady=10)
-suction_head = Entry(root, width=30)
-suction_head.grid(row=1, column=5, padx=10, pady=10)
+static_head_label = Label(root, text="Static Head 'S':")
+static_head_label.grid(row=1, column=4, padx=10, pady=10)
+static_head = Entry(root, width=30)
+static_head.grid(row=1, column=5, padx=10, pady=10)
 
-discharge_head_label = Label(root, text="Discharge Head 'D':")
-discharge_head_label.grid(row=2, column=4, padx=10, pady=10)
-discharge_head = Entry(root, width=30)
-discharge_head.grid(row=2, column=5, padx=10, pady=10)
+#discharge_head_label = Label(root, text="Discharge Head 'D':")
+#discharge_head_label.grid(row=2, column=4, padx=10, pady=10)
+#discharge_head = Entry(root, width=30)
+#discharge_head.grid(row=2, column=5, padx=10, pady=10)
 
 #-------------Pipe-----------------
 pipe_label = Label(root, text="Pipe", fg="blue")
