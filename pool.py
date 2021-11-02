@@ -100,14 +100,14 @@ def calculate():
         drain_turn_over_rate = float(turn_over_rate[0])
         print(drain_turn_over_rate)
         drain_Q = 0.2 * drain_turn_over_rate
-        V = 0.914
+        V = 0.5
         drainage_size = (math.sqrt((4*drain_Q)/(3.142*V*3600)))*1000
         #drainage_size = math.sqrt((4*drain_Q)/(3.142*V))
     elif clicked_drainage.get() == "2 pairs":
         drain_turn_over_rate = float(turn_over_rate[0])
         print(turn_over_rate)
         drain_Q = 0.1 * drain_turn_over_rate
-        V = 0.914
+        V = 0.5
         drainage_size = (math.sqrt((4*drain_Q)/(3.142*V*3600)))*1000
         #drainage_size = math.sqrt((4*drain_Q)/(3.142*V))
     print(str(drainage_size)+ "\n")
@@ -209,31 +209,31 @@ def calculate():
     calc_label = Label(top, text="Results:")
     calc_label.grid(row=0, column=0)
 
-    bathing_load_label = Label(top, text="The bathing load is: "+ str(bathing_load))
+    bathing_load_label = Label(top, text="The bathing load: "+ str(bathing_load)+ " people")
     bathing_load_label.grid(row=1, column=0)
 
-    turn_over_rate_label = Label(top, text="The turn over rate is: "+ str(turn_over_rate))
+    turn_over_rate_label = Label(top, text="The turn over rate: "+ str(turn_over_rate)+ " m³/hr")
     turn_over_rate_label.grid(row=2, column=0)
 
-    return_inlet_flow_rate_label = Label(top, text="The return inlet flow rate is: "+ str(return_inlet_flow_rate))
+    return_inlet_flow_rate_label = Label(top, text="The return inlet flow rate: "+ str(return_inlet_flow_rate))
     return_inlet_flow_rate_label.grid(row=3, column=0)
 
-    dsp_h1_label = Label(top, text="The Drainage Suction Pipe head loss is: "+ str(dsp_hl))
+    dsp_h1_label = Label(top, text="The Drainage Suction Pipe head loss: "+ str(dsp_hl) + " mm")
     dsp_h1_label.grid(row=4, column=0)
 
-    msp_h1_label = Label(top, text="The Main Suction Pipe head loss is: "+ str(msp_hl))
+    msp_h1_label = Label(top, text="The Main Suction Pipe head loss: "+ str(msp_hl)+ " mm")
     msp_h1_label.grid(row=5, column=0)
 
-    mrip_h1_label = Label(top, text="The Main Return Inlet Pipe head loss is: "+ str(mrip_hl))
+    mrip_h1_label = Label(top, text="The Main Return Inlet Pipe head loss: "+ str(mrip_hl)+ " mm")
     mrip_h1_label.grid(row=6, column=0)
 
-    drainage_size_label = Label(top, text="The Drainage Size is: "+ str(drainage_size))
+    drainage_size_label = Label(top, text="The Drainage Size: "+ str(drainage_size)+ " mm")
     drainage_size_label.grid(row=7, column=0)
 
-    chlorine_day_label = Label(top, text="The Chlorination in kg/day is: "+ str(chlorine_day))
+    chlorine_day_label = Label(top, text="The Chlorination in kg/day: "+ str(chlorine_day))
     chlorine_day_label.grid(row=8, column=0)
 
-    dynamic_head_label = Label(top, text="The Total Dynamic Head is: "+ str(dynamic_head)+ " meters")
+    dynamic_head_label = Label(top, text="The Total Dynamic Head: "+ str(dynamic_head)+ " m")
     dynamic_head_label.grid(row=9, column=0)
 
 
