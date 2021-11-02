@@ -93,6 +93,8 @@ def calculate():
 
 
 
+
+
     if clicked_drainage.get() == "1 pair":
         drain_turn_over_rate = float(turn_over_rate[0])
         print(drain_turn_over_rate)
@@ -217,7 +219,29 @@ def add_joints():
     clear_data = Button(top, text="Clear ALL Data", bg="red",  command=delete_joints)
     clear_data.grid(row=5, column=1, pady=20)
 
+def show_joints():
+    top = Toplevel()
+    conn = sqlite3.connect("pool.db")
+    cur = conn.cursor()
 
+    cur.execute("SELECT * FROM Joints;")
+    all_joints = cur.fetchall()
+    print(all_joints)
+    if len(all_joints) < 1:
+        joint_display = Label(top, text="No joints have been added", fg="black")
+        joint_display.grid(row=0, column=0, padx=10, pady=10)
+
+    else:
+
+        row = 1
+        joint_t = Label(top, text="Joint Type", fg="black")
+        joint_t.grid(row=0, column=0)
+        joint_d = Label(top, text="Joint Diameter", fg="black")
+        joint_d.grid(row=0, column=1)
+        for i in all_joints:
+            joint_display = Label(top, text=i[1] + "\t"+ str(i[2])+ " mm", fg="black")
+            joint_display.grid(row=row, column=0, padx=10, pady=10)
+            row = row + 1
 
 #-------------Dimension------------------
 dimension_label = Label(root, text="Dimension", fg="blue")
@@ -280,6 +304,9 @@ joints.grid(row=5, column=2, padx=(20,20), pady=20)
 
 calculate = Button(root, text="Calculate", command=calculate)
 calculate.grid(row=7, column=2, padx=(40,40), pady=20)
+
+show_joints =  Button(root, text="Show Added Joints", command=show_joints)
+show_joints.grid(row=8, column=2, padx=(40,40), pady=20)
 
 #-------------Pump--------------------------------
 inlet_outlet_label = Label(root, text="Pump", fg="red")
