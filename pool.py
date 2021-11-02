@@ -93,6 +93,8 @@ def calculate():
 
 
 
+
+
     if clicked_drainage.get() == "1 pair":
         drain_turn_over_rate = float(turn_over_rate[0])
         print(drain_turn_over_rate)
