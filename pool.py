@@ -127,6 +127,72 @@ def calculate():
         chlorine_day = (Z * 1440)/1000
     print("Chlorine Day: " + str(chlorine_day))
 
+    conn = sqlite3.connect("pool.db")
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM Joints;")
+    all_created_joints = cur.fetchall()
+    size = [152.9, 203.2, 254, 304.8, 355.6, 406.4]
+    type_j = ["90° Elbow", "Long Radius Elbow", "45° Elbow", "Tee Joint"]
+    for i in all_created_joints:
+        if i[1] ==  "90° Elbow" and i[2] == 152.4:
+            loss = 4.88
+        elif i[1] ==  "90° Elbow" and i[2] == 203.2:
+            loss = 6.4
+        elif i[1] ==  "90° Elbow" and i[2] == 254:
+            loss = 7.92
+        elif i[1] ==  "90° Elbow" and i[2] == 304.8:
+            loss = 9.75
+        elif i[1] ==  "90° Elbow" and i[2] == 355.6:
+            loss = 10.97
+        elif i[1] ==  "90° Elbow" and i[2] == 406.4:
+            loss = 12.80
+        elif i[1] ==  "Long Elbow" and i[2] == 152.4:
+            loss = 3.35
+        elif i[1] ==  "Long Elbow" and i[2] == 203.2:
+            loss = 4.27
+        elif i[1] ==  "Long Elbow" and i[2] == 254:
+            loss = 5.18
+        elif i[1] ==  "Long Elbow" and i[2] == 304.8:
+            loss = 6.10
+        elif i[1] ==  "Long Elbow" and i[2] == 355.6:
+            loss = 7.01
+        elif i[1] ==  "Long Elbow" and i[2] == 406.4:
+            loss = 8.23
+        elif i[1] ==  "45° Elbow" and i[2] == 152.4:
+            loss = 2.35
+        elif i[1] ==  "45° Elbow" and i[2] == 203.2:
+            loss = 3.05
+        elif i[1] ==  "45° Elbow" and i[2] == 254:
+            loss = 3.96
+        elif i[1] ==  "45° Elbow" and i[2] == 304.8:
+            loss = 4.57
+        elif i[1] ==  "45° Elbow" and i[2] == 355.6:
+            loss = 5.18
+        elif i[1] ==  "45° Elbow" and i[2] == 406.4:
+            loss = 5.79
+        elif i[1] ==  "Tee Joint" and i[2] == 152.4:
+            loss = 10.06
+        elif i[1] ==  "Tee Joint" and i[2] == 203.2:
+            loss = 13.11
+        elif i[1] ==  "4Tee Joint" and i[2] == 254:
+            loss = 17.06
+        elif i[1] ==  "Tee Joint" and i[2] == 304.8:
+            loss = 20.12
+        elif i[1] ==  "Tee Joint" and i[2] == 355.6:
+            loss = 23.16
+        elif i[1] ==  "Tee Joint" and i[2] == 406.4:
+            loss = 26.52
+        else:
+            loss = 0
+
+
+
+
+
+
+
+
     top = Toplevel()
     calc_label = Label(top, text="Results:")
     calc_label.grid(row=0, column=0)
