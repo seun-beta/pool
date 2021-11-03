@@ -37,8 +37,10 @@ def calculate():
 
     if clicked_depth.get() == "2 m":
         turn_over_rate = str(4161.23/6) + " m3/hr"
+        final_pool_volume = "4161.23 m3"
     else:
         turn_over_rate = str(5411.23/6) + " m3/hr"
+        final_pool_volume = "5411.23 m3"
     print(turn_over_rate+ "\n")
 
     
@@ -206,36 +208,38 @@ def calculate():
 
 
     top = Toplevel()
-    calc_label = Label(top, text="Results:")
-    calc_label.grid(row=0, column=0)
+    calc_label = Label(top, text="Results:", font="Arial")
+    calc_label.grid(row=0, column=0, pady=10, padx=10)
 
     bathing_load_label = Label(top, text="The bathing load: "+ str(bathing_load)+ " people")
-    bathing_load_label.grid(row=1, column=0)
+    bathing_load_label.grid(row=1, column=0, pady=10, padx=10)
 
     turn_over_rate_label = Label(top, text="The turn over rate: "+ str(turn_over_rate)+ " m³/hr")
-    turn_over_rate_label.grid(row=2, column=0)
+    turn_over_rate_label.grid(row=2, column=0, pady=10, padx=10)
 
     return_inlet_flow_rate_label = Label(top, text="The return inlet flow rate: "+ str(return_inlet_flow_rate))
-    return_inlet_flow_rate_label.grid(row=3, column=0)
+    return_inlet_flow_rate_label.grid(row=3, column=0, pady=10, padx=10)
 
     dsp_h1_label = Label(top, text="The Drainage Suction Pipe head loss: "+ str(dsp_hl) + " mm")
-    dsp_h1_label.grid(row=4, column=0)
+    dsp_h1_label.grid(row=4, column=0, pady=10, padx=10)
 
     msp_h1_label = Label(top, text="The Main Suction Pipe head loss: "+ str(msp_hl)+ " mm")
-    msp_h1_label.grid(row=5, column=0)
+    msp_h1_label.grid(row=5, column=0, pady=10, padx=10)
 
     mrip_h1_label = Label(top, text="The Main Return Inlet Pipe head loss: "+ str(mrip_hl)+ " mm")
-    mrip_h1_label.grid(row=6, column=0)
+    mrip_h1_label.grid(row=6, column=0, pady=10, padx=10)
 
     drainage_size_label = Label(top, text="The Drainage Size: "+ str(drainage_size)+ " mm")
-    drainage_size_label.grid(row=7, column=0)
+    drainage_size_label.grid(row=7, column=0, pady=10, padx=10)
 
     chlorine_day_label = Label(top, text="The Chlorination in kg/day: "+ str(chlorine_day))
-    chlorine_day_label.grid(row=8, column=0)
+    chlorine_day_label.grid(row=8, column=0, pady=10, padx=10)
 
     dynamic_head_label = Label(top, text="The Total Dynamic Head: "+ str(dynamic_head)+ " m")
-    dynamic_head_label.grid(row=9, column=0)
+    dynamic_head_label.grid(row=9, column=0, pady=10, padx=10)
 
+    final_pool_volume_label = Label(top, text="The Pool Volume: "+ final_pool_volume)
+    final_pool_volume_label.grid(row=10, column=0, pady=10, padx=10)
 
 
 
@@ -314,13 +318,13 @@ def show_joints():
 
     else:
 
-        row = 1
-        joint_t = Label(top, text="Joint Type", fg="black")
-        joint_t.grid(row=0, column=0)
-        joint_d = Label(top, text="Joint Diameter", fg="black")
-        joint_d.grid(row=0, column=1)
+        row = 0
+        #joint_t = Label(top, text="Joint Type", fg="black")
+        #joint_t.grid(row=0, column=0)
+        #joint_d = Label(top, text="Joint Diameter", fg="black")
+        #joint_d.grid(row=0, column=1)
         for i in all_joints:
-            joint_display = Label(top, text=i[1] + "\t"+ str(i[2])+ " mm", fg="black")
+            joint_display = Label(top, text=i[1] + ":    "+ str(i[2])+ " mm", fg="black", font="Arial")
             joint_display.grid(row=row, column=0, padx=10, pady=10)
             row = row + 1
 
